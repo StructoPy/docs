@@ -6,19 +6,26 @@ El proyecto está compuesto por un backend en .NET y un frontend en Nuxt.js, e i
 
 ## Herramientas Base (Requeridas)
 
-### 1. Node.js & npm
+### 1. Node.js 22+ & npm
 
 Requerido para el frontend (Nuxt) y para la documentación (VitePress).
 
 - **Propósito**: Ejecutar el servidor de desarrollo de Nuxt, compilar el frontend, y gestionar las dependencias del ecosistema JavaScript.
-- **Instalación**: Se recomienda instalar la versión LTS actual. Puedes descargarlo desde [nodejs.org](https://nodejs.org/) o usar un gestor de versiones como `nvm`.
+- **Instalación**: Instala la versión **22 o superior**. Puedes descargarlo desde [nodejs.org](https://nodejs.org/) o usar un gestor de versiones como `nvm`.
 
-### 2. .NET SDK
+### 2. .NET SDK 10
 
-Requerido para el backend escrito en C#.
+Requerido para el backend escrito en C#. Asegúrate de instalar la versión **10**.
 
-- **Propósito**: Compilar y ejecutar la solución `Structo.sln` y los diversos proyectos ubicados en la carpeta `backend/`.
-- **Instalación**: Descarga e instala el .NET SDK desde la [página oficial de Microsoft](https://dotnet.microsoft.com/download). Verifica la versión específica requerida por los proyectos examinando `Directory.Build.props` o los archivos `.csproj`.
+- **Propósito**: Compilar y ejecutar la solución `Structo.sln` y los diversos proyectos ubicados en la carpeta donde se encuentra el backend.
+- **Instalación**: Descarga e instala el .NET 10 SDK desde la [página oficial de Microsoft](https://dotnet.microsoft.com/download).
+
+#### Entity Framework Core Tools (dotnet-ef)
+Adicionalmente, se requiere la herramienta global de EF Core para gestionar las migraciones de la base de datos.
+- **Instalación**: Ejecuta el siguiente comando en tu terminal luego de instalar el SDK de .NET:
+  ```bash
+  dotnet tool install --global dotnet-ef
+  ```
 
 ### 3. SQL Server
 

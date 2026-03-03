@@ -6,19 +6,26 @@ The project consists of a .NET backend and a Nuxt.js frontend, and interacts wit
 
 ## Core Tools (Required)
 
-### 1. Node.js & npm
+### 1. Node.js 22+ & npm
 
 Required for the frontend (Nuxt) and for the documentation (VitePress).
 
 - **Purpose**: Run the Nuxt development server, build the frontend, and manage the JavaScript ecosystem dependencies.
-- **Installation**: It is recommended to install the current LTS version. You can download it from [nodejs.org](https://nodejs.org/) or use a version manager like `nvm`.
+- **Installation**: Install version **22 or higher**. You can download it from [nodejs.org](https://nodejs.org/) or use a version manager like `nvm`.
 
-### 2. .NET SDK
+### 2. .NET SDK 10
 
-Required for the C# backend.
+Required for the C# backend. Make sure to install version **10**.
 
-- **Purpose**: Build and run the `Structo.sln` solution and the various projects located in the `backend/` folder.
-- **Installation**: Download and install the .NET SDK from the [official Microsoft page](https://dotnet.microsoft.com/download). Verify the specific version required by the projects by examining `Directory.Build.props` or the `.csproj` files.
+- **Purpose**: Build and run the `Structo.sln` solution and the various projects located in the folder where the backend is hosted.
+- **Installation**: Download and install the .NET 10 SDK from the [official Microsoft page](https://dotnet.microsoft.com/download).
+
+#### Entity Framework Core Tools (dotnet-ef)
+Additionally, the EF Core global tool is required to manage database migrations.
+- **Installation**: Run the following command in your terminal after installing the .NET SDK:
+  ```bash
+  dotnet tool install --global dotnet-ef
+  ```
 
 ### 3. SQL Server
 

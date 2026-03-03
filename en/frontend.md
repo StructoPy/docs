@@ -1,0 +1,63 @@
+# Frontend Setup and Architecture
+
+The **Structo** frontend is built using **Nuxt 3**, which runs on top of **Vue 3**. Nuxt provides a robust architecture by default, supporting Server-Side Rendering (SSR) or Static Site Generation (SSG) while naturally structuring the codebase.
+
+## 🚀 How to Run Locally
+
+### 1. Install Dependencies
+Make sure you have Node.js (22 or higher) installed. Open your terminal, navigate to the frontend project, and install all dependencies:
+```bash
+npm install
+```
+
+### 2. Environment Variables
+Ensure you have configured the correct environments by reviewing or adjusting the respective file for local development. Nuxt 3 natively reads variables from `.env`.
+
+### 3. Start the Development Server
+To run the application with Hot Module Replacement (HMR):
+```bash
+npm run dev
+```
+The web application will typically be served at `http://localhost:3000`.
+
+---
+
+## 🏗️ Applied Patterns and Ecosystem
+
+- **Pinia for State Management**: Replaces Vuex. Used in the `stores/` folder to manage transparent and reactive global data flows throughout the application.
+- **Composables**: Extensive use of the Vue Composition API (`setup()`). Composables allow you to extract reusable logic and state into pages or components.
+- **Shared Auto-imports**: Nuxt 3 auto-imports components, composables, and utilities by default, saving you from having to clutter the explicit imports section.
+- **Strict Typescript**: All core code, `stores`, and requests are strongly typed to prevent runtime errors.
+
+## 📁 Directory Structure
+
+The structure under the `frontend/app` folder follows Nuxt's conventional File-System Routing standard:
+
+```mermaid
+graph LR
+    P[pages/\nFile-based Routing] --> C{components/\nUI Components}
+    P --> COMP[composables/\nReusable Vue 3 Logic]
+    P --> S[stores/\nPinia State Management]
+    
+    C --> COMP
+    C --> S
+    COMP -. API Request .-> API((Backend Ecosystem))
+    S -. Local Hydration .-> COMP
+    
+    style P fill:#00DC82,stroke:#000,stroke-width:2px,color:#000
+    style C fill:#34495e,stroke:#333,stroke-width:2px,color:#fff
+    style COMP fill:#42b883,stroke:#333,stroke-width:2px,color:#fff
+    style S fill:#ffe12b,stroke:#a68e00,stroke-width:2px,color:#000
+```
+
+### App Main Directories Description
+
+- **app.vue**: The main component and visual entry point of the application.
+- **pages/**: Hosts the _View_ components. Each `.vue` file within this directory graphically represents a different web route.
+- **components/**: Used for modular and reusable visual components. Nuxt will register them automatically around the project.
+- **layouts/**: Allows setting common graphical shells (navbar, footer, sidebar, etc.) to be shared between different `pages`.
+- **composables/**: Hosts exported functions (like `useMyLogic()`). Ideal for direct fetch requests, logical state, and form utilities.
+- **stores/**: Defines the **Pinia** stores. Centralized data logic (e.g., the current user session, active cart, etc.).
+- **middleware/**: Code that executes _before_ transitioning to a particular route. (Ideal for authentication guards).
+- **plugins/**: Global code that loads to initialize extra tools inside the Vue instance before rendering.
+- **public/** and **assets/**: For static images, web fonts, or global stylesheets (like CSS/SCSS).

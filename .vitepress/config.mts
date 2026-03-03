@@ -19,7 +19,9 @@ export default defineConfig({
           {
             text: 'Introducción',
             items: [
-              { text: 'Herramientas', link: '/tools' }
+              { text: 'Herramientas', link: '/tools' },
+              { text: 'Backend (.NET)', link: '/backend' },
+              { text: 'Frontend (Nuxt)', link: '/frontend' }
             ]
           }
         ]
@@ -38,7 +40,9 @@ export default defineConfig({
           {
             text: 'Introduction',
             items: [
-              { text: 'Tools', link: '/en/tools' }
+              { text: 'Tools', link: '/en/tools' },
+              { text: 'Backend (.NET)', link: '/en/backend' },
+              { text: 'Frontend (Nuxt)', link: '/en/frontend' }
             ]
           }
         ]
