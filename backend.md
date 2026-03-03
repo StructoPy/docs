@@ -108,3 +108,45 @@ graph TD
 4. **Structo.Infrastructure**: Contiene las clases de `DbContext` (Entity Framework), las implementaciones reales de los repositorios y la configuración hacia bases de datos externas (SQL Server / MongoDB). Depende de `Structo.Domain`.
 5. **Structo.DTO**: Contiene estructuras planas que transportan los datos solicitados hacia el exterior de la API, evitando exponer directamente las clases del Dominio.
 6. **Structo.Common**: Constantes transversales, excepciones personalizadas compartidas y métodos de extensión para toda la solución.
+
+---
+
+## 📐 Convenciones de Nombrado y DTOs
+
+Al transportar datos, la aplicación obliga a separar la capa de Dominio de la capa HTTP usando **DTOs (Data Transfer Objects)**. Estos se ubican en `src/Structo.DTO/Models`. Para mantener la consistencia, usa los siguientes prefijos o sufijos:
+- `*Model`: Para representar una entidad de salida o de vista general (ej. `OrderModel`).
+- `Create*RequestModel` / `Create*Model`: Payload requerido para un endpoint `POST` (ej. `CreateOrderRequestModel`).
+- `Update*RequestModel` / `Update*Model`: Payload para actualizar una entidad en un endpoint `PUT`.
+- `*FilterModel` / `*Request`: Usado típicamente para recibir parámetros de búsqueda o paginación.
+
+*Nota: La validación de los DTOs de entrada se realiza con `FluentValidation` en el directorio `Structo.DTO/FluentValidations/` antes de tocar los controladores.*
+
+---
+
+## 🔐 Autenticación y Autorización (Identity)
+
+El sistema utiliza **ASP.NET Core Identity** con tokens **JWT** para manejar usuarios, roles y autenticación.
+- **Roles:** El modelo de BD posee roles predefinidos (`SuperAdmin`, `Admin`, etc.).
+- **Permisos Específicos (Claims):** Además de roles, el control fino se hace mediante `IdentityRoleClaim`. Por ejemplo, en el seed pudimos ver claims como `list:roles`, `edit:roles`. En los controladores, puedes usar la política/autorización basada en estos claims para restringir el acceso a ciertos endpoints.
+
+---
+
+## 🏗️ Flujo de Creación de una Nueva Entidad
+
+Si necesitas agregar una tabla/funcionalidad completamente nueva al sistema (ej. `Invoice`), sigue esta secuencia estricta:
+1. **Domain**: Crea la entidad `Invoice.cs` dentro de `src/Structo.Domain/Entities/`. Hereda de base entities si aplica.
+2. **Infrastructure (DB)**: Agrega el `DbSet<Invoice> Invoices { get; set; }` en `AppDbContext.cs`.
+3. **Migración**: Ejecuta `./ef.sh add AddInvoiceTable` seguido de `./ef.sh update` para actualizar la base de datos local.
+4. **DTO y Validaciones**: Crea `InvoiceModel` y `CreateInvoiceModel` en `Structo.DTO`, y de ser necesario, un validador en `FluentValidations`.
+5. **Services**: Crea `IInvoiceService` e `InvoiceService` en `Structo.Services/`. Aplica ahí tu lógica de negocio y registra el servicio en `ServicesInjection.cs`.
+6. **WebApi**: Expone el controlador `InvoicesController.cs` inyectando el servicio.
+
+---
+
+## ⚙️ Tareas Background y Notificaciones
+
+En `Program.cs` se inicializan herramientas clave para la comunicación asíncrona:
+- **Quartz.NET**: Para tareas cronometradas (Scheduled Jobs). Si quieres que algo se corra todos los días a media noche, crea un Job de Quartz.
+- **TickerQ**: Usado como una cola simple de tareas en memoria, principalmente para encolar trabajo transaccional/ligero y sacarlo del hilo HTTP principal.
+- **SignalR (WebSockets)**: Configuraciones expuestas en los hubs `/hubs/tasks` o `/hubs/notifications` para empujar notificaciones en tiempo real al frontend Vue/Nuxt.
+- **Notificaciones Externas**: La inyección de dependencias ya contempla clientes para Twilio (`ITwilioRestClient`) para WhatsApp/SMS y el ecosistema Facebook (`WhatsAppHttpClient`). Puedes inyectar estos servicios donde lo requieras.

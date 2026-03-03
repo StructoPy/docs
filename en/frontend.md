@@ -62,3 +62,37 @@ graph LR
 - **middleware/**: Code that executes _before_ transitioning to a particular route. (Ideal for authentication guards).
 - **plugins/**: Global code that loads to initialize extra tools inside the Vue instance before rendering.
 - **public/** and **assets/**: For static images, web fonts, or global stylesheets (like CSS/SCSS).
+
+---
+
+## 🌐 HTTP Fetch Flow
+
+To communicate with the backend API, the application avoids native `fetch` or raw `axios` scattered throughout the code. Instead, it relies on Nuxt/Vue 3 composables (like a custom `$fetch` or `useFetch`).
+- **`apiFetch` / Custom Fetch:** Typically, these wrappers automatically intercept requests to attach the **JWT Token** from the active session into the headers (`Authorization: Bearer <token>`).
+- **Usage:** Call these fetch methods ideally inside your Pinia actions (stores) or directly within the `<script setup>` block of your components and composables.
+
+---
+
+## 🔐 Authentication & Accounts (Session)
+
+The frontend integrates **`@sidebase/nuxt-auth`** to handle the entire session lifecycle securely.
+- **Login and Logout:** Use functions like `signIn()` and `signOut()` provided by the module. They negotiate token exchange with the backend and handle local storage.
+- **Protected Routes:** Nuxt `middleware` (e.g., `definePageMeta({ middleware: 'auth' })`) is applied inside individual `pages/` to block unauthenticated access, forcing redirects back to the login screen.
+- **User State:** The connected user's payload (Claims, Roles) is globally accessible by using `useAuth()` or through a dedicated Pinia Session Store.
+
+---
+
+## 🌍 Internationalization (i18n)
+
+Multilingual support is achieved using the **`@nuxtjs/i18n`** Nuxt module.
+- **Dictionaries:** Translation mappings are defined either in configuration or through external files (e.g., `en.json`, `es.json`) usually kept in a `locales/` or similar directory.
+- **Usage inside Components:** To output translated text, use the `$t('translation.key')` function in your Vue templates, or call the `useI18n()` composable within your scripts.
+- **Switching Locales:** Exposes functions (like `setLocale('en')`) to actively toggle the platform's language on the fly.
+
+---
+
+## 📝 Environment Variables and Configuration
+
+The application spins up using variables defined in `.env` files located in the frontend root (such as `.env.local`, `.env.staging`, `.env.production`). Critical keys usually include:
+- **`NUXT_PUBLIC_API_BASE`** (or similar): Defines the absolute URL pointing to the backend (e.g., `http://localhost:5000/api`).
+Remember to review or scaffold your own `.env.local` file before running the project initially via `npm run dev`.

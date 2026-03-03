@@ -62,3 +62,37 @@ graph LR
 - **middleware/**: Código que se ejecuta _antes_ de transicionar a una ruta particular. (Ideal para guardias de autenticación).
 - **plugins/**: Código que carga globalmente para inicializar herramientas extras dentro de la instancia de Vue antes del render.
 - **public/** y **assets/**: Para imágenes estáticas, fuentes web o hojas de estilo globales (como CSS/SCSS).
+
+---
+
+## 🌐 Flujo de Peticiones HTTP (Fetch)
+
+Para comunicarse con el backend, la aplicación no utiliza el `fetch` nativo ni axios directamente. En su lugar, se apoya en composables propios de Nuxt/ Vue 3 (como `useFetch` o `$fetch` customizado) centralizados.
+- **`apiFetch` / Custom Fetch:** Generalmente, los wrappers automáticamente interceptan las peticiones para adjuntar el **Token JWT** de la sesión actual en los encabezados (`Authorization: Bearer <token>`).
+- **Dónde usarlos:** Idealmente dentro de tus acciones de Pinia (stores) o directamente en los bloques `<script setup>` de tus componentes o composables.
+
+---
+
+## 🔐 Autenticación y Cuentas (Session)
+
+El frontend utiliza la integración de **`@sidebase/nuxt-auth`** para manejar todo el ciclo de vida de la sesión.
+- **Inicio y Cierre:** Funciones como `signIn()` y `signOut()` provistas por el módulo son las encargadas de negociar los tokens con el backend y almacenarlos localmente.
+- **Rutas Protegidas:** Se utilizan `middleware` (ej. `definePageMeta({ middleware: 'auth' })`) en las páginas (`pages/`) para bloquear el acceso a usuarios no identificados, forzando una redirección al login.
+- **Estado de Usuario:** La información del usuario conectado (Claims, Rol) suele estar disponible globalmente usando `useAuth()` o un Store de sesión en Pinia.
+
+---
+
+## 🌍 Internacionalización (i18n)
+
+Se utiliza **`@nuxtjs/i18n`** para dar soporte multi-idioma.
+- **Diccionarios:** Los archivos de traducción se configuran estáticamente o mediante archivos (por ej. `en.json`, `es.json`) en un directorio dedicado (`locales/` o `i18n/`).
+- **Uso en Componentes:** Para imprimir un texto traducido, utiliza la función especial `$t('key.de.traduccion')` en los templates Vue, o el composable `useI18n()` dentro de los scripts.
+- **Cambio de Idioma:** Existen métodos (ej. `setLocale('en')`) para cambiar activamente el idioma de la plataforma al vuelo.
+
+---
+
+## 📝 Variables de Entorno y Configuración
+
+El proyecto se nutre de variables definidas en los archivos `.env` presentes en la raíz del frontend (`.env.local`, `.env.staging`, `.env.production`). Las claves más críticas suelen ser:
+- **`NUXT_PUBLIC_API_BASE`** (o similar): La URL absoluta hacia el backend (ej. `http://localhost:5000/api`).
+No olvides revisar o crear tu propio `.env.local` antes de arrancar por primera vez el proyecto usando `npm run dev`.
