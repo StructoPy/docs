@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Structo Docs",
   description: "Documentation for Structo",
+  base: '/docs/',
 
   locales: {
     root: {
