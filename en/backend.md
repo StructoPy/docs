@@ -25,6 +25,16 @@ Enter the backend project. You can apply migrations to the SQL Server database i
 ### 3. Loading Initial Data (Seed)
 The backend project is configured to run the *Seeding* process **automatically** every time the application starts. During startup (`Program.cs`), if foundational entities are missing, the system will auto-insert them using `InitDatabase`.
 
+Therefore, simply starting the application will trigger this *seeding* process:
+- **Option 1: Using the `dev.sh` script (Recommended)**
+  ```bash
+  ./dev.sh run
+  ```
+- **Option 2: Using standard `dotnet` CLI**
+  ```bash
+  dotnet run --project src/Structo.WebApi/Structo.WebApi.csproj
+  ```
+
 ### 4. Run the Project
 Similar to migrations, you have two alternatives for running the Web API:
 - **Option 1: Using automated scripts (Recommended)**

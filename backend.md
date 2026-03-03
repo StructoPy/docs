@@ -25,6 +25,16 @@ Entra al proyecto backend. Puedes aplicar las migraciones a la base de datos SQL
 ### 3. Cargar Datos Iniciales (Seed)
 El proyecto backend está configurado para ejecutar el proceso de *Seeding* de datos de forma **automática** cada vez que se levanta la aplicación. Durante el arranque (`Program.cs`), si existen entidades base faltantes, el sistema las insertará por su cuenta usando `InitDatabase`.
 
+Por lo tanto, simplemente arrancar la aplicación efectuará este proceso de *seeding*:
+- **Opción 1: Usando el script `dev.sh` (Recomendado)**
+  ```bash
+  ./dev.sh run
+  ```
+- **Opción 2: Usando `dotnet` tradicional**
+  ```bash
+  dotnet run --project src/Structo.WebApi/Structo.WebApi.csproj
+  ```
+
 ### 4. Correr el Proyecto
 Al igual que las migraciones, tienes dos alternativas para levantar la Web API:
 - **Opción 1: Usando los scripts (Recomendado)**
