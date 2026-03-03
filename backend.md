@@ -12,22 +12,54 @@ docker-compose up -d
 O usar tus instancias locales. Asegúrate de configurar las cadenas de conexión correctas en los archivos `appsettings.Development.json` dentro del proyecto principal.
 
 ### 2. Ejecutar Migraciones (Entity Framework)
-Entra al proyecto backend y aplica las migraciones a la base de datos SQL Server:
-```bash
-dotnet ef database update --project src/Structo.Infrastructure/Structo.Infrastructure.csproj --startup-project src/Structo.WebApi/Structo.WebApi.csproj
-```
+Entra al proyecto backend. Puedes aplicar las migraciones a la base de datos SQL Server de dos maneras:
+- **Opción 1: Usando los scripts (Recomendado)**
+  ```bash
+  ./ef.sh update
+  ```
+- **Opción 2: Usando `dotnet` tradicional**
+  ```bash
+  dotnet ef database update --project src/Structo.Infrastructure/Structo.Infrastructure.csproj --startup-project src/Structo.WebApi/Structo.WebApi.csproj
+  ```
 
 ### 3. Cargar Datos Iniciales (Seed)
-Para poblar la base de datos con información base o de prueba, el ecosistema suele proveer un mecanismo de *Seeding*. Este suele ejecutarse al inicio de la aplicación dentro de la configuración del `Program.cs` o usando un endpoint especializado, dependiendo de la configuración actual.
-
-Si el seed está configurado por inyección o endpoint integrado, simplemente basta con correr el proyecto en modo de desarrollo y/o llamar al endpoint dedicado (por ejemplo, `POST /api/seed` desde Swagger) para insertar los primeros registros.
+El proyecto backend está configurado para ejecutar el proceso de *Seeding* de datos de forma **automática** cada vez que se levanta la aplicación. Durante el arranque (`Program.cs`), si existen entidades base faltantes, el sistema las insertará por su cuenta usando `InitDatabase`.
 
 ### 4. Correr el Proyecto
-Levanta la Web API ejecutando el siguiente comando:
-```bash
-dotnet run --project src/Structo.WebApi/Structo.WebApi.csproj
-```
-El servidor de desarrollo iniciará (usualmente expone una ruta de Swagger en `http://localhost:<puerto>/swagger`).
+Al igual que las migraciones, tienes dos alternativas para levantar la Web API:
+- **Opción 1: Usando los scripts (Recomendado)**
+  ```bash
+  ./dev.sh run
+  ```
+- **Opción 2: Usando `dotnet` tradicional**
+  ```bash
+  dotnet run --project src/Structo.WebApi/Structo.WebApi.csproj
+  ```
+El servidor de desarrollo iniciará y deberías poder acceder a la interfaz interactiva de la API (Swagger) navegando a:
+- `http://localhost:5000/swagger` o
+- `https://localhost:5001/swagger` (si usaste el comando de `dev.sh run` con perfil HTTPS activo).
+
+---
+
+## 🛠️ Listado de Comandos de Ayuda (Scripts Automáticos)
+Para facilitar el flujo, el repositorio expone dos scripts `.sh` en la raíz del backend:
+
+### Script `dev.sh`
+Envuelve la interfaz de línea de comandos de .NET agregando la configuración por defecto y el perfil HTTPS.
+- `./dev.sh run`: Ejecuta la aplicación con el perfil HTTPS.
+- `./dev.sh watch`: Ejecuta la aplicación con Hot Reload (watch) habilitado.
+- `./dev.sh build`: Compila la solución completa.
+- `./dev.sh build-errors`: Compila mostrando únicamente los errores de compilación.
+- `./dev.sh test`: Ejecuta todos los tests automáticos encontrados (Unidad e Integración).
+- `./dev.sh clean`: Limpia la solución compilada.
+- `./dev.sh restore`: Restaura todos los paquetes NuGet.
+
+### Script `ef.sh`
+Envuelve `dotnet ef` pre-estableciendo los nombres correctos de los proyectos de Infraestructura y WebApi.
+- `./ef.sh add <nombre>`: Añade una nueva migración.
+- `./ef.sh update`: Aplica las migraciones pendientes en la base de datos.
+- `./ef.sh remove`: Revierte y elimina la última migración.
+- `./ef.sh list`: Lista todas las migraciones existentes.
 
 ---
 

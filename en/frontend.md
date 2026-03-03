@@ -1,6 +1,6 @@
 # Frontend Setup and Architecture
 
-The **Structo** frontend is built using **Nuxt 3**, which runs on top of **Vue 3**. Nuxt provides a robust architecture by default, supporting Server-Side Rendering (SSR) or Static Site Generation (SSG) while naturally structuring the codebase.
+The **Structo** frontend is built using **Nuxt 4**, which runs on top of **Vue 3**. Nuxt provides a robust architecture by default, supporting Server-Side Rendering (SSR) or Static Site Generation (SSG) while naturally structuring the codebase.
 
 ## 🚀 How to Run Locally
 
@@ -11,7 +11,7 @@ npm install
 ```
 
 ### 2. Environment Variables
-Ensure you have configured the correct environments by reviewing or adjusting the respective file for local development. Nuxt 3 natively reads variables from `.env`.
+Ensure you have configured the correct environments by reviewing or adjusting the respective file for local development. Nuxt 4 natively reads variables from `.env`.
 
 ### 3. Start the Development Server
 To run the application with Hot Module Replacement (HMR):
@@ -24,10 +24,11 @@ The web application will typically be served at `http://localhost:3000`.
 
 ## 🏗️ Applied Patterns and Ecosystem
 
+- **Strict Typescript**: All core code, `stores`, and requests are strongly typed (TypeScript) to prevent runtime errors.
+- **Vuetify (UI Library)**: **Vuetify** is heavily utilized as the main visual component framework (Material Design), providing a complete ecosystem of adaptive buttons, tables, grids, and directives.
 - **Pinia for State Management**: Replaces Vuex. Used in the `stores/` folder to manage transparent and reactive global data flows throughout the application.
-- **Composables**: Extensive use of the Vue Composition API (`setup()`). Composables allow you to extract reusable logic and state into pages or components.
-- **Shared Auto-imports**: Nuxt 3 auto-imports components, composables, and utilities by default, saving you from having to clutter the explicit imports section.
-- **Strict Typescript**: All core code, `stores`, and requests are strongly typed to prevent runtime errors.
+- **Composables**: Extensive use of the Vue 3 Composition API (`setup()`). Composables allow you to extract reusable logic and state into pages or components.
+- **Shared Auto-imports**: Nuxt 4 auto-imports components, composables, and utilities by default, saving you from having to clutter the explicit imports section.
 
 ## 📁 Directory Structure
 

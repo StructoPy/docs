@@ -1,6 +1,6 @@
 # Configuración y Arquitectura del Frontend
 
-El frontend de **Structo** está desarrollado usando **Nuxt 3** que funciona sobre **Vue 3**. Nuxt proporciona una arquitectura robusta por defecto, soportando renderizado del lado del servidor (SSR) o generación de sitios estáticos (SSG) además de estructurar naturalmente la base del código.
+El frontend de **Structo** está desarrollado usando **Nuxt 4** que funciona sobre **Vue 3**. Nuxt proporciona una arquitectura robusta por defecto, soportando renderizado del lado del servidor (SSR) o generación de sitios estáticos (SSG) además de estructurar naturalmente la base del código.
 
 ## 🚀 Cómo levantar el entorno local
 
@@ -11,7 +11,7 @@ npm install
 ```
 
 ### 2. Variables de Entorno
-Asegúrate de configurar los entornos correctos revisando o ajustando el archivo respectivo para local. Nuxt 3 lee nativamente variables de `.env`.
+Asegúrate de configurar los entornos correctos revisando o ajustando el archivo respectivo para local. Nuxt 4 lee nativamente variables de `.env`.
 
 ### 3. Levantar el Servidor de Desarrollo
 Para correr la aplicación con _Hot Module Replacement_ (HMR):
@@ -24,10 +24,11 @@ La aplicación web típicamente se servirá en `http://localhost:3000`.
 
 ## 🏗️ Patrones y Ecosistema Utilizado
 
+- **Typescript Estricto**: Todo el código principal, estados (`stores`) y peticiones se tipan fuertemente (TypeScript) para evitar errores en tiempo de ejecución.
+- **Vuetify (Librería UI)**: Se utiliza **Vuetify** como marco principal de componentes visuales (Material Design), proporcionando un completo ecosistema de botones, tablas, grids y directivas adaptables.
 - **Pinia para Manejo de Estado**: Reemplaza a Vuex. Utilizado en la carpeta `stores/` para manejar flujos de datos globales transparentes y reactivos en toda la aplicación.
-- **Composables**: Extensa utilización de la API de Composición de Vue (`setup()`). Los composables permiten extraer estado y lógica reutilizable a las páginas o componentes.
-- **Auto-importado Compartido**: Nuxt 3 auto-importa por defecto los componentes, composables y utilidades, evitando tener que llenarlo todo en la sección de imports explícitos.
-- **Typescript Estricto**: Todo el código principal, estados (`stores`) y peticiones se tipan fuertemente para evitar errores en tiempo de ejecución.
+- **Composables**: Extensa utilización de la API de Composición de Vue 3 (`setup()`). Los composables permiten extraer estado y lógica reutilizable a las páginas o componentes.
+- **Auto-importado Compartido**: Nuxt 4 auto-importa por defecto los componentes, composables y utilidades, evitando tener que llenarlo todo en la sección de imports explícitos.
 
 ## 📁 Estructura de Directorios
 
