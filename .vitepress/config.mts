@@ -15,18 +15,29 @@ export default withMermaid(
         themeConfig: {
           nav: [
             { text: 'Inicio', link: '/' },
-            { text: 'Guía', link: '/tools' }
+            { text: 'Desarrolladores', link: '/developer/tools' },
+            { text: 'Módulos', link: '/modules/' }
           ],
-          sidebar: [
-            {
-              text: 'Introducción',
-              items: [
-                { text: 'Herramientas', link: '/tools' },
-                { text: 'Backend (.NET)', link: '/backend' },
-                { text: 'Frontend (Nuxt)', link: '/frontend' }
-              ]
-            }
-          ]
+          sidebar: {
+            '/developer/': [
+              {
+                text: 'Guía de Desarrollo',
+                items: [
+                  { text: 'Herramientas', link: '/developer/tools' },
+                  { text: 'Backend (.NET)', link: '/developer/backend' },
+                  { text: 'Frontend (Nuxt)', link: '/developer/frontend' }
+                ]
+              }
+            ],
+            '/modules/': [
+              {
+                text: 'Módulos del Sistema',
+                items: [
+                  { text: 'Introducción', link: '/modules/' }
+                ]
+              }
+            ]
+          }
         }
       },
       en: {
@@ -36,18 +47,29 @@ export default withMermaid(
         themeConfig: {
           nav: [
             { text: 'Home', link: '/en/' },
-            { text: 'Guide', link: '/en/tools' }
+            { text: 'Developers', link: '/en/developer/tools' },
+            { text: 'Modules', link: '/en/modules/' }
           ],
-          sidebar: [
-            {
-              text: 'Introduction',
-              items: [
-                { text: 'Tools', link: '/en/tools' },
-                { text: 'Backend (.NET)', link: '/en/backend' },
-                { text: 'Frontend (Nuxt)', link: '/en/frontend' }
-              ]
-            }
-          ]
+          sidebar: {
+            '/en/developer/': [
+              {
+                text: 'Developer Guide',
+                items: [
+                  { text: 'Tools', link: '/en/developer/tools' },
+                  { text: 'Backend (.NET)', link: '/en/developer/backend' },
+                  { text: 'Frontend (Nuxt)', link: '/en/developer/frontend' }
+                ]
+              }
+            ],
+            '/en/modules/': [
+              {
+                text: 'Software Modules',
+                items: [
+                  { text: 'Introduction', link: '/en/modules/' }
+                ]
+              }
+            ]
+          }
         }
       }
     },

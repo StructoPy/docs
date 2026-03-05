@@ -8,11 +8,11 @@ hero:
   tagline: ".NET Backend, Nuxt Frontend"
   actions:
     - theme: brand
-      text: Get Started
-      link: /en/tools
+      text: Developer Guide
+      link: /en/developer/tools
     - theme: alt
-      text: View on GitHub
-      link: /en/
+      text: Software Modules
+      link: /en/modules/
 
 features:
   - title: .NET Backend
