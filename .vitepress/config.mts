@@ -26,6 +26,7 @@ export default withMermaid(
                   { text: 'Herramientas', link: '/developer/tools' },
                   { text: 'Backend (.NET)', link: '/developer/backend' },
                   { text: 'Frontend (Nuxt)', link: '/developer/frontend' },
+                  { text: 'Pinia Colada', link: '/developer/pinia-colada' },
                   { text: 'Observabilidad', link: '/developer/observability' }
                 ]
               }
@@ -59,6 +60,7 @@ export default withMermaid(
                   { text: 'Tools', link: '/en/developer/tools' },
                   { text: 'Backend (.NET)', link: '/en/developer/backend' },
                   { text: 'Frontend (Nuxt)', link: '/en/developer/frontend' },
+                  { text: 'Pinia Colada', link: '/en/developer/pinia-colada' },
                   { text: 'Observability', link: '/en/developer/observability' }
                 ]
               }
