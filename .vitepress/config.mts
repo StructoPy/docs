@@ -35,7 +35,8 @@ export default withMermaid(
               {
                 text: 'Módulos del Sistema',
                 items: [
-                  { text: 'Introducción', link: '/modules/' }
+                  { text: 'Introducción', link: '/modules/' },
+                  { text: 'Budgets', link: '/modules/budgets/' }
                 ]
               }
             ]
